@@ -1,0 +1,2119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="异采 YiCai - 中国化妆品供应链服务平台">
+<title>异采 YiCai | 让世界共享中国化妆品产业发展红利</title>
+<style>
+/* ============ RESET & BASE ============ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --orange: #F37021;
+  --orange-dark: #D95A10;
+  --orange-light: #FF8C42;
+  --brown: #3C2415;
+  --brown-light: #5A3D2E;
+  --cream: #FAF6F0;
+  --white: #FFFFFF;
+  --gray: #8A8A8A;
+  --gray-light: #E8E2D8;
+  --shadow: 0 2px 12px rgba(60,36,21,0.06);
+  --shadow-hover: 0 4px 20px rgba(60,36,21,0.10);
+  --radius: 16px;
+  --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  background: var(--cream);
+  color: var(--brown);
+  line-height: 1.7;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+h1,h2,h3,h4,h5,h6 { line-height: 1.3; font-weight: 700; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section-title {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.section-title h2 {
+  font-size: 36px;
+  color: var(--brown);
+  margin-bottom: 12px;
+  position: relative;
+  display: inline-block;
+}
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--orange);
+  border-radius: 2px;
+}
+.section-title p {
+  color: var(--gray);
+  font-size: 16px;
+  margin-top: 16px;
+}
+section { padding: 100px 0; }
+[data-lang] { display: none; }
+html[lang="zh"] [data-lang="zh"], html[lang="en"] [data-lang="en"] { display: block; }
+.inline-lang { display: none !important; }
+html[lang="zh"] .inline-lang[data-lang="zh"] { display: inline !important; }
+html[lang="en"] .inline-lang[data-lang="en"] { display: inline !important; }
+
+/* ============ NAVBAR ============ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(60,36,21,0.06);
+  transition: var(--transition);
+}
+.navbar.scrolled {
+  box-shadow: 0 2px 20px rgba(60,36,21,0.1);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.nav-logo {
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--brown);
+  position: relative;
+  padding: 4px 0;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--orange);
+  transition: var(--transition);
+}
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+.nav-links a:hover { color: var(--orange); }
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-left: 16px;
+  border: 1.5px solid var(--gray-light);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.lang-btn {
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--gray);
+  transition: var(--transition);
+}
+.lang-btn.active {
+  background: var(--orange);
+  color: white;
+}
+.mobile-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+.mobile-toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--brown);
+  transition: var(--transition);
+  border-radius: 2px;
+}
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--cream);
+  padding-top: 72px;
+}
+.hero-bg-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-bg-shapes .circle1 {
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(243,112,33,0.04) 0%, transparent 70%);
+  top: -100px; right: -100px;
+}
+.hero-bg-shapes .circle2 {
+  position: absolute;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(243,112,33,0.03) 0%, transparent 70%);
+  bottom: 10%; left: -50px;
+}
+.hero-bg-shapes .hex {
+  position: absolute;
+  width: 120px; height: 120px;
+  border: 2px solid rgba(243,112,33,0.1);
+  top: 20%; right: 15%;
+  transform: rotate(30deg);
+  border-radius: 12px;
+}
+.hero-bg-shapes .hex2 {
+  position: absolute;
+  width: 80px; height: 80px;
+  border: 2px solid rgba(243,112,33,0.08);
+  bottom: 25%; left: 10%;
+  transform: rotate(15deg);
+  border-radius: 8px;
+}
+.hero-bg-shapes .dots {
+  position: absolute;
+  width: 200px; height: 200px;
+  background-image: radial-gradient(circle, rgba(243,112,33,0.12) 1px, transparent 1px);
+  background-size: 20px 20px;
+  top: 30%; right: 5%;
+  opacity: 0.5;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(243,112,33,0.1);
+  color: var(--orange);
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+}
+.hero h1 {
+  font-size: 48px;
+  color: var(--brown);
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+.hero h1 .highlight {
+  background: linear-gradient(135deg, var(--orange), var(--orange-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero .subtitle {
+  font-size: 18px;
+  color: var(--gray);
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 36px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
+  letter-spacing: 0.5px;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--orange), var(--orange-light));
+  color: white;
+  box-shadow: 0 2px 12px rgba(243,112,33,0.25);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(243,112,33,0.30);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--brown);
+  border: 2px solid var(--gray-light);
+}
+.btn-outline:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  transform: translateY(-2px);
+}
+.hero-visual {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45%;
+  max-width: 560px;
+  z-index: 1;
+}
+.hero-card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+.hero-float-card {
+  position: relative;
+  background: white;
+  border-radius: 14px;
+  padding: 14px 18px;
+  box-shadow: var(--shadow);
+  max-width: 220px;
+  transition: transform 0.3s ease;
+}
+.hero-float-card:hover {
+  transform: translateY(-4px);
+}
+.hero-float-card:nth-child(1) {
+  align-self: flex-start;
+}
+.hero-float-card:nth-child(2) {
+  align-self: flex-end;
+}
+.hero-float-card:nth-child(3) {
+  align-self: center;
+}
+.hero-float-card .card-icon {
+  width: 36px; height: 36px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, rgba(243,112,33,0.1), rgba(243,112,33,0.05));
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 6px;
+  font-size: 18px;
+}
+.hero-float-card h4 { font-size: 13px; margin-bottom: 3px; white-space: nowrap; }
+.hero-float-card p { font-size: 11px; color: var(--gray); white-space: nowrap; }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ============ STATS ============ */
+.stats {
+  background: var(--brown);
+  padding: 60px 0;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.stat-item {
+  text-align: center;
+  color: white;
+  padding: 8px 4px;
+  min-width: 0;
+}
+.stat-number {
+  font-size: 40px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--orange), var(--orange-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+  line-height: 1.2;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+.stat-label {
+  font-size: 13px;
+  opacity: 0.8;
+  letter-spacing: 0.5px;
+}
+
+/* ============ ABOUT ============ */
+.about { background: var(--white); }
+.about-intro {
+  max-width: 800px;
+  margin: 0 auto 60px;
+  text-align: center;
+}
+.about-intro p {
+  font-size: 17px;
+  color: #666;
+  line-height: 1.9;
+}
+.vm-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin-bottom: 80px;
+}
+.vm-card {
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.vm-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--orange), var(--orange-light));
+}
+.vm-card h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: var(--brown);
+}
+.vm-card p {
+  color: #666;
+  line-height: 1.8;
+}
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 80px;
+}
+.value-card {
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  text-align: center;
+  transition: var(--transition);
+}
+.value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  background: white;
+}
+.value-icon {
+  width: 64px; height: 64px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(243,112,33,0.12), rgba(243,112,33,0.04));
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 28px;
+}
+.value-card h4 { font-size: 16px; margin-bottom: 8px; }
+.value-card p { font-size: 13px; color: var(--gray); }
+
+/* Timeline */
+.timeline { position: relative; padding: 20px 0; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: var(--gray-light);
+  transform: translateX(-50%);
+}
+.timeline-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+.timeline-item:nth-child(odd) { flex-direction: row; }
+.timeline-item:nth-child(even) { flex-direction: row-reverse; }
+.timeline-content {
+  width: 45%;
+  background: white;
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+.timeline-content:hover { box-shadow: var(--shadow-hover); }
+.timeline-dot {
+  width: 16px; height: 16px;
+  background: var(--orange);
+  border: 3px solid white;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 4px rgba(243,112,33,0.2);
+  z-index: 2;
+}
+.timeline-year {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+.timeline-content h4 { font-size: 16px; margin-bottom: 6px; }
+.timeline-content p { font-size: 14px; color: var(--gray); }
+
+/* ============ SERVICES ============ */
+.services { background: var(--cream); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 24px;
+}
+.service-card {
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  cursor: pointer;
+}
+.service-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+.service-header {
+  padding: 32px;
+  position: relative;
+}
+.service-number {
+  position: absolute;
+  top: 20px; right: 24px;
+  font-size: 48px;
+  font-weight: 800;
+  color: rgba(243,112,33,0.08);
+  line-height: 1;
+}
+.service-icon {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--orange), var(--orange-light));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: white;
+}
+.service-header h3 { font-size: 20px; margin-bottom: 4px; }
+.service-header .en-name { font-size: 13px; color: var(--gray); margin-bottom: 12px; }
+.service-header p { font-size: 14px; color: #666; line-height: 1.7; }
+.service-expand-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  font-size: 13px;
+  color: var(--orange);
+  font-weight: 600;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  transition: var(--transition);
+}
+.service-expand-btn:hover { background: rgba(243,112,33,0.04); }
+.service-expand-btn .arrow {
+  transition: var(--transition);
+  margin-left: 6px;
+}
+.service-card.expanded .service-expand-btn .arrow { transform: rotate(180deg); }
+.service-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.service-card.expanded .service-details { max-height: 600px; }
+.service-details-inner {
+  padding: 0 32px 32px;
+}
+.detail-section { margin-bottom: 20px; }
+.detail-section h5 {
+  font-size: 14px;
+  color: var(--orange);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.detail-section ul { padding-left: 0; }
+.detail-section li {
+  font-size: 13px;
+  color: #666;
+  padding: 3px 0;
+  padding-left: 16px;
+  position: relative;
+}
+.detail-section li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 11px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+  opacity: 0.5;
+}
+.service-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.flow-step {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--brown);
+  background: var(--cream);
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+.flow-step .flow-arrow { color: var(--orange); font-size: 10px; }
+
+/* ============ COOPERATION ============ */
+.cooperation { background: white; }
+.coop-models {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin-bottom: 80px;
+}
+.coop-card {
+  border-radius: var(--radius);
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+.coop-card:hover { transform: translateY(-4px); }
+.coop-card.full {
+  background: linear-gradient(135deg, var(--brown), var(--brown-light));
+  color: white;
+}
+.coop-card.partial {
+  background: var(--cream);
+  border: 2px solid var(--gray-light);
+}
+.coop-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.coop-card.full .coop-badge { background: var(--orange); color: white; }
+.coop-card.partial .coop-badge { background: rgba(243,112,33,0.1); color: var(--orange); }
+.coop-card h3 { font-size: 22px; margin-bottom: 12px; }
+.coop-card p { font-size: 14px; opacity: 0.8; margin-bottom: 20px; line-height: 1.7; }
+.coop-card ul li {
+  font-size: 14px;
+  padding: 6px 0;
+  padding-left: 24px;
+  position: relative;
+}
+.coop-card ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--orange);
+  font-weight: 700;
+}
+.coop-card.partial h3, .coop-card.partial p, .coop-card.partial ul li { color: var(--brown); }
+
+/* Process */
+.process-flow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 80px;
+  position: relative;
+}
+.process-flow::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background: var(--gray-light);
+}
+.process-step {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  flex: 1;
+}
+.process-num {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--gray-light);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 12px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--brown);
+  transition: var(--transition);
+}
+.process-step:hover .process-num {
+  background: var(--orange);
+  color: white;
+  border-color: var(--orange);
+}
+.process-step h5 { font-size: 13px; margin-bottom: 4px; }
+.process-step p { font-size: 11px; color: var(--gray); }
+
+/* Client profiles */
+.client-profiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.client-card {
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: 32px;
+  text-align: center;
+  transition: var(--transition);
+}
+.client-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.client-emoji { font-size: 48px; margin-bottom: 16px; }
+.client-card h4 { font-size: 17px; margin-bottom: 8px; }
+.client-card p { font-size: 13px; color: var(--gray); line-height: 1.7; }
+
+/* ============ CASES ============ */
+.cases { background: var(--cream); }
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+.case-card {
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+.case-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+.case-banner {
+  height: 8px;
+  background: var(--orange);
+}
+.case-body { padding: 36px; }
+.case-tag {
+  display: inline-block;
+  background: rgba(243,112,33,0.1);
+  color: var(--orange);
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.case-body h3 { font-size: 22px; margin-bottom: 16px; }
+.case-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.case-metric {
+  text-align: center;
+  padding: 16px 8px;
+  background: var(--cream);
+  border-radius: 12px;
+}
+.case-metric .num {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--orange);
+}
+.case-metric .label {
+  font-size: 11px;
+  color: var(--gray);
+  margin-top: 4px;
+}
+.case-quote {
+  font-style: italic;
+  color: #666;
+  font-size: 14px;
+  padding: 16px 20px;
+  border-left: 3px solid var(--orange);
+  background: rgba(243,112,33,0.03);
+  border-radius: 0 8px 8px 0;
+  line-height: 1.7;
+}
+
+/* ============ TEAM ============ */
+.team { background: white; }
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+.team-card {
+  text-align: center;
+  padding: 40px 24px;
+  border-radius: var(--radius);
+  background: var(--cream);
+  transition: var(--transition);
+}
+.team-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+.team-avatar {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  overflow: hidden;
+  border: 3px solid white;
+  box-shadow: 0 4px 16px rgba(60,36,21,0.1);
+}
+.team-card h4 { font-size: 18px; margin-bottom: 4px; }
+.team-card .role {
+  font-size: 13px;
+  color: var(--orange);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.team-card .exp {
+  font-size: 12px;
+  color: var(--gray);
+  margin-bottom: 12px;
+}
+.team-card .bio {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.7;
+}
+
+/* ============ CONTACT ============ */
+.contact { background: var(--cream); }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+.contact-form {
+  background: white;
+  border-radius: var(--radius);
+  padding: 40px;
+  box-shadow: var(--shadow);
+}
+.contact-form h3 { font-size: 22px; margin-bottom: 24px; }
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--brown);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--gray-light);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: var(--transition);
+  background: var(--cream);
+  color: var(--brown);
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(243,112,33,0.1);
+  background: white;
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.contact-info-section h3 { font-size: 22px; margin-bottom: 24px; }
+.info-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.info-card {
+  background: white;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+.info-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+.info-card .icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(243,112,33,0.1), rgba(243,112,33,0.04));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+.info-card h5 { font-size: 13px; color: var(--gray); margin-bottom: 4px; font-weight: 500; }
+.info-card p { font-size: 15px; font-weight: 600; color: var(--brown); }
+
+/* ============ FOOTER ============ */
+.footer {
+  background: var(--brown);
+  color: white;
+  padding: 60px 0 30px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 40px;
+}
+.footer-brand h3 {
+  font-size: 24px;
+  color: var(--orange);
+  margin-bottom: 12px;
+}
+.footer-brand p {
+  font-size: 14px;
+  opacity: 0.7;
+  line-height: 1.7;
+}
+.footer-links h4 {
+  font-size: 15px;
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+.footer-links a {
+  display: block;
+  font-size: 13px;
+  opacity: 0.6;
+  padding: 4px 0;
+  transition: var(--transition);
+}
+.footer-links a:hover { opacity: 1; color: var(--orange); }
+.footer-bottom {
+  text-align: center;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 13px;
+  opacity: 0.5;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1024px) {
+  .hero-visual { display: none; }
+  .hero-content { max-width: 100%; }
+  .hero h1 { font-size: 38px; }
+  .values-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  section { padding: 60px 0; }
+  .section-title h2 { font-size: 28px; }
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 72px;
+    left: 0; right: 0;
+    background: white;
+    padding: 20px 24px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    gap: 12px;
+  }
+  .mobile-toggle { display: flex; }
+  .hero h1 { font-size: 30px; }
+  .hero .subtitle { font-size: 16px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .stat-number { font-size: 32px; }
+  .stat-item { padding: 12px 8px; }
+  .vm-cards { grid-template-columns: 1fr; }
+  .values-grid { grid-template-columns: 1fr 1fr; }
+  .timeline::before { left: 20px; }
+  .timeline-item, .timeline-item:nth-child(even) { flex-direction: row; }
+  .timeline-content { width: calc(100% - 50px); margin-left: auto; }
+  .timeline-dot { left: 20px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .coop-models { grid-template-columns: 1fr; }
+  .process-flow {
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+  }
+  .process-flow::before { display: none; }
+  .client-profiles { grid-template-columns: 1fr; }
+  .cases-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .info-cards { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+  .hero-buttons { flex-direction: column; }
+  .btn { width: 100%; text-align: center; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 26px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .stat-number { font-size: 28px; }
+  .values-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .case-metrics { grid-template-columns: 1fr; }
+}
+
+/* ============ ANIMATIONS ============ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">异采 YiCai</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#home"><span data-lang="zh">首页</span><span data-lang="en">Home</span></a>
+      <a href="#about"><span data-lang="zh">关于我们</span><span data-lang="en">About</span></a>
+      <a href="#services"><span data-lang="zh">服务能力</span><span data-lang="en">Services</span></a>
+      <a href="#cooperation"><span data-lang="zh">合作模式</span><span data-lang="en">Cooperation</span></a>
+      <a href="#cases"><span data-lang="zh">成功案例</span><span data-lang="en">Cases</span></a>
+      <a href="#team"><span data-lang="zh">专家团队</span><span data-lang="en">Team</span></a>
+      <a href="#contact"><span data-lang="zh">联系我们</span><span data-lang="en">Contact</span></a>
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang-btn="zh" onclick="switchLang('zh')">中</button>
+        <button class="lang-btn" data-lang-btn="en" onclick="switchLang('en')">EN</button>
+      </div>
+    </div>
+    <div class="mobile-toggle" id="mobileToggle" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="home">
+  <div class="hero-bg-shapes">
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+    <div class="hex"></div>
+    <div class="hex2"></div>
+    <div class="dots"></div>
+  </div>
+  <div class="container" style="display:flex;align-items:center;position:relative;">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span data-lang="zh">化妆品供应链服务平台</span>
+        <span data-lang="en">Cosmetics Supply Chain Services</span>
+      </div>
+      <h1>
+        <span data-lang="zh">让世界共享<br><span class="highlight">中国化妆品产业</span><br>发展红利</span>
+        <span data-lang="en">Helping the World Benefit from <span class="highlight">China's</span><br>Cosmetics Industry<br>Growth</span>
+      </h1>
+      <p class="subtitle">
+        <span data-lang="zh">从备案咨询到代运营，陪你走完化妆品供应链每一步</span>
+        <span data-lang="en">From regulatory filing to brand operation — walking with you through every step of China's cosmetics supply chain</span>
+      </p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">
+          <span data-lang="zh">开始合作</span>
+          <span data-lang="en">Start Now</span>
+        </a>
+        <a href="#services" class="btn btn-outline">
+          <span data-lang="zh">了解服务</span>
+          <span data-lang="en">Our Services</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+        <div class="hero-float-card">
+          <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F37021" stroke-width="2"><path d="M9 3h6v7l4 8H5l4-8V3z"/></svg></div>
+          <h4><span data-lang="zh">合规备案</span><span data-lang="en">Regulatory Filing</span></h4>
+          <p><span data-lang="zh">NMPA全流程代办</span><span data-lang="en">Full NMPA Process</span></p>
+        </div>
+        <div class="hero-float-card">
+          <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F37021" stroke-width="2"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M7 8V5a2 2 0 012-2h6a2 2 0 012 2v3"/></svg></div>
+          <h4><span data-lang="zh">优质工厂</span><span data-lang="en">Quality Factories</span></h4>
+          <p><span data-lang="zh">1000+ 合作工厂</span><span data-lang="en">1000+ Partner Factories</span></p>
+        </div>
+        <div class="hero-float-card">
+          <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F37021" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div>
+          <h4><span data-lang="zh">全品类覆盖</span><span data-lang="en">Full Category</span></h4>
+          <p><span data-lang="zh">护肤品·彩妆·个护</span><span data-lang="en">Skincare · Makeup · Personal Care</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== STATS ========== -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item fade-in">
+        <div class="stat-number" data-target="1000">0</div>
+        <div class="stat-label">
+          <span data-lang="zh">合作工厂</span>
+          <span data-lang="en">Partner Factories</span>
+        </div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number">
+          <span data-lang="zh">全品类</span>
+          <span data-lang="en">Full Range</span>
+        </div>
+        <div class="stat-label">
+          <span data-lang="zh">产品覆盖</span>
+          <span data-lang="en">Category Coverage</span>
+        </div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number" data-target="100">0</div>
+        <div class="stat-label">
+          <span data-lang="zh">服务客户</span>
+          <span data-lang="en">Clients Served</span>
+        </div>
+      </div>
+      <div class="stat-item fade-in">
+        <div class="stat-number" data-target="30">0</div>
+        <div class="stat-label">
+          <span data-lang="zh">年行业经验</span>
+          <span data-lang="en">Years Experience</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ABOUT ========== -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-title fade-in">
+      <h2><span data-lang="zh">关于我们</span><span data-lang="en">About Us</span></h2>
+      <p>
+        <span data-lang="zh">中国化妆品供应链服务平台</span>
+        <span data-lang="en">Supply Chain Platform for China's Cosmetics Industry</span>
+      </p>
+    </div>
+
+    <div class="about-intro fade-in">
+      <p>
+        <span data-lang="zh">异采（YiCai）做的事情说起来简单：把中国化妆品产业链上的资源串起来。从备案咨询、原料和包材采购，到代加工生产和品牌代运营，我们帮客户省掉到处找供应商、反复踩坑的麻烦，把产品顺利做出来、卖出去。</span>
+        <span data-lang="en">YiCai connects the dots across China's cosmetics supply chain. From regulatory filing, raw material and packaging sourcing, to contract manufacturing and brand operation — we help clients skip the hassle of finding suppliers and navigating regulations, and get products made and sold smoothly.</span>
+      </p>
+    </div>
+
+    <div class="vm-cards fade-in">
+      <div class="vm-card">
+        <h3><span data-lang="zh">愿景</span><span data-lang="en">Vision</span></h3>
+        <p>
+          <span data-lang="zh">让更多品牌和消费者受益于中国化妆品产业链</span>
+          <span data-lang="en">Helping more brands and consumers benefit from China's cosmetics industry</span>
+        </p>
+      </div>
+      <div class="vm-card">
+        <h3><span data-lang="zh">使命</span><span data-lang="en">Mission</span></h3>
+        <p>
+          <span data-lang="zh">把中国化妆品产业的生产力整理好、对接好，让合作变得省心靠谱</span>
+          <span data-lang="en">Organizing and connecting China's cosmetics production capabilities so partnerships are worry-free and reliable</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="values-grid fade-in">
+      <div class="value-card">
+        <div class="value-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F37021" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></div>
+        <h4><span data-lang="zh">全链路整合</span><span data-lang="en">Full Chain Integration</span></h4>
+        <p><span data-lang="zh">备案、采购、生产、运营都能管</span><span data-lang="en">Handling filing, sourcing, manufacturing, and operations</span></p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F37021" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <h4><span data-lang="zh">深度行业资源</span><span data-lang="en">Deep Industry Resources</span></h4>
+        <p><span data-lang="zh">和1000多家靠谱工厂保持长期合作</span><span data-lang="en">Long-term partnerships with 1000+ reliable factories</span></p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F37021" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg></div>
+        <h4><span data-lang="zh">专业团队保障</span><span data-lang="en">Professional Team</span></h4>
+        <p><span data-lang="zh">团队核心成员都在行业里干了10年以上</span><span data-lang="en">Core team members have been in the industry for 10+ years each</span></p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F37021" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <h4><span data-lang="zh">合规与品控</span><span data-lang="en">Compliance & QC</span></h4>
+        <p><span data-lang="zh">从原料到成品全程盯着合规和品质</span><span data-lang="en">Watching over compliance and quality from raw materials to finished products</span></p>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="section-title fade-in" style="margin-top:40px;">
+      <h2><span data-lang="zh">发展历程</span><span data-lang="en">Milestones</span></h2>
+    </div>
+    <div class="timeline fade-in">
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-year">2025 Q1</div>
+          <h4><span data-lang="zh">公司成立</span><span data-lang="en">Company Founded</span></h4>
+          <p><span data-lang="zh">异采成立于上海，开始深耕化妆品供应链服务</span><span data-lang="en">YiCai was founded in Shanghai, starting the journey in cosmetics supply chain services</span></p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-year">2025 Q2-Q3</div>
+          <h4><span data-lang="zh">供应链快速整合</span><span data-lang="en">Rapid Supply Chain Integration</span></h4>
+          <p><span data-lang="zh">合作工厂突破500家，覆盖护肤、彩妆、个护等全品类</span><span data-lang="en">Partner factories exceeded 500, covering skincare, makeup, personal care and more</span></p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-year">2025 Q4</div>
+          <h4><span data-lang="zh">服务客户突破100家</span><span data-lang="en">100+ Clients Served</span></h4>
+          <p><span data-lang="zh">累计服务超过100家品牌客户，涵盖国内外品牌</span><span data-lang="en">Served over 100 brand clients, covering both domestic and international brands</span></p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-year">2026</div>
+          <h4><span data-lang="zh">数字化升级 + 国际化启动</span><span data-lang="en">Digital Upgrade + Global Expansion</span></h4>
+          <p><span data-lang="zh">推进供应链数字化管理，同时启动海外业务布局</span><span data-lang="en">Advancing digital supply chain management while launching overseas business expansion</span></p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SERVICES ========== -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-title fade-in">
+      <h2><span data-lang="zh">服务能力</span><span data-lang="en">Our Services</span></h2>
+      <p>
+        <span data-lang="zh">六大核心服务模块，覆盖化妆品全生命周期</span>
+        <span data-lang="en">Six core service modules covering the full cosmetics lifecycle</span>
+      </p>
+    </div>
+
+    <div class="services-grid fade-in">
+      <!-- Service 1 -->
+      <div class="service-card" onclick="toggleService(this)">
+        <div class="service-header">
+          <div class="service-number">01</div>
+          <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></div>
+          <h3><span data-lang="zh">备案咨询</span><span data-lang="en">Regulatory Filing</span></h3>
+          <div class="en-name">NMPA Regulatory Filing</div>
+          <p>
+            <span data-lang="zh">NMPA备案我们全程代办。法规团队对配方合规、标签规范这些很熟，能帮你少走弯路、加快上市节奏。</span>
+            <span data-lang="en">We handle the entire NMPA filing process. Our regulatory team knows the ins and outs of formula compliance and labeling, helping you avoid detours and speed up your launch.</span>
+          </p>
+        </div>
+        <div class="service-details">
+          <div class="service-details-inner">
+            <div class="detail-section">
+              <h5><span data-lang="zh">服务内容</span><span data-lang="en">Services</span></h5>
+              <ul>
+                <li><span data-lang="zh">化妆品注册备案全流程代办</span><span data-lang="en">End-to-end cosmetics registration and filing</span></li>
+                <li><span data-lang="zh">配方合规审核与优化建议</span><span data-lang="en">Formula compliance review and optimization</span></li>
+                <li><span data-lang="zh">功效宣称评估与验证</span><span data-lang="en">Efficacy claim assessment and verification</span></li>
+                <li><span data-lang="zh">标签审核与合规指导</span><span data-lang="en">Label review and compliance guidance</span></li>
+              </ul>
+            </div>
+            <div class="detail-section">
+              <h5><span data-lang="zh">服务流程</span><span data-lang="en">Process</span></h5>
+              <div class="service-flow">
+                <div class="flow-step"><span data-lang="zh">资料收集</span><span data-lang="en">Data Collection</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">配方审核</span><span data-lang="en">Formula Review</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">送检测试</span><span data-lang="en">Testing</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">备案申报</span><span data-lang="en">Filing Submission</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">获批跟进</span><span data-lang="en">Approval Tracking</span></div>
+              </div>
+            </div>
+            <div class="detail-section">
+              <h5><span data-lang="zh">核心优势</span><span data-lang="en">Advantages</span></h5>
+              <ul>
+                <li><span data-lang="zh">30年法规经验，通过率行业领先</span><span data-lang="en">30 years of regulatory experience, industry-leading approval rate</span></li>
+                <li><span data-lang="zh">平均备案周期缩短30%</span><span data-lang="en">Average filing cycle reduced by 30%</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="service-expand-btn">
+          <span data-lang="zh">查看详情</span><span data-lang="en">View Details</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="service-card" onclick="toggleService(this)">
+        <div class="service-header">
+          <div class="service-number">02</div>
+          <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 3h6v7l4 8H5l4-8V3z"/><circle cx="12" cy="16" r="1"/></svg></div>
+          <h3><span data-lang="zh">原料采购</span><span data-lang="en">Raw Material Sourcing</span></h3>
+          <div class="en-name">Raw Material Sourcing & Procurement</div>
+          <p>
+            <span data-lang="zh">我们手上有一批经过筛选的原料供应商，品质把关和价格方面都能帮你谈下来。</span>
+            <span data-lang="en">We have a pool of vetted raw material suppliers, helping you with both quality control and cost negotiation.</span>
+          </p>
+        </div>
+        <div class="service-details">
+          <div class="service-details-inner">
+            <div class="detail-section">
+              <h5><span data-lang="zh">服务内容</span><span data-lang="en">Services</span></h5>
+              <ul>
+                <li><span data-lang="zh">全球优质原料供应商资源对接</span><span data-lang="en">Global premium raw material supplier matching</span></li>
+                <li><span data-lang="zh">原料品质检测与评估</span><span data-lang="en">Raw material quality testing and evaluation</span></li>
+                <li><span data-lang="zh">集采优势，成本优化</span><span data-lang="en">Collective purchasing advantages and cost optimization</span></li>
+                <li><span data-lang="zh">原料合规性与安全性评估</span><span data-lang="en">Raw material compliance and safety assessment</span></li>
+              </ul>
+            </div>
+            <div class="detail-section">
+              <h5><span data-lang="zh">服务流程</span><span data-lang="en">Process</span></h5>
+              <div class="service-flow">
+                <div class="flow-step"><span data-lang="zh">需求分析</span><span data-lang="en">Needs Analysis</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">供应商匹配</span><span data-lang="en">Supplier Matching</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">样品测试</span><span data-lang="en">Sample Testing</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">批量采购</span><span data-lang="en">Bulk Order</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">质检入库</span><span data-lang="en">QC & Warehousing</span></div>
+              </div>
+            </div>
+            <div class="detail-section">
+              <h5><span data-lang="zh">核心优势</span><span data-lang="en">Advantages</span></h5>
+              <ul>
+                <li><span data-lang="zh">500+原料供应商资源池</span><span data-lang="en">500+ raw material supplier resource pool</span></li>
+                <li><span data-lang="zh">集采价格平均降低15%-20%</span><span data-lang="en">Average 15-20% cost reduction via bulk purchasing</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="service-expand-btn">
+          <span data-lang="zh">查看详情</span><span data-lang="en">View Details</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="service-card" onclick="toggleService(this)">
+        <div class="service-header">
+          <div class="service-number">03</div>
+          <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M12 7V3M6 7V5a2 2 0 012-2h8a2 2 0 012 2v2"/><path d="M2 12h20"/></svg></div>
+          <h3><span data-lang="zh">包材采购</span><span data-lang="en">Packaging Sourcing</span></h3>
+          <div class="en-name">Packaging Material Sourcing & Procurement</div>
+          <p>
+            <span data-lang="zh">包材从设计思路到量产出货我们都能跟，帮你找到品牌调性和成本之间的平衡点。</span>
+            <span data-lang="en">We follow through on packaging from design concepts to mass production, helping you balance brand identity with cost.</span>
+          </p>
+        </div>
+        <div class="service-details">
+          <div class="service-details-inner">
+            <div class="detail-section">
+              <h5><span data-lang="zh">服务内容</span><span data-lang="en">Services</span></h5>
+              <ul>
+                <li><span data-lang="zh">包材设计方案定制</span><span data-lang="en">Custom packaging design solutions</span></li>
+                <li><span data-lang="zh">包材供应商资源匹配</span><span data-lang="en">Packaging supplier resource matching</span></li>
+                <li><span data-lang="zh">打样确认与品质管控</span><span data-lang="en">Prototyping and quality control</span></li>
+                <li><span data-lang="zh">量产跟进与交期管理</span><span data-lang="en">Mass production tracking and delivery management</span></li>
+                <li><span data-lang="zh">新型环保包材方案推荐</span><span data-lang="en">Eco-friendly packaging solutions recommendation</span></li>
+              </ul>
+            </div>
+            <div class="detail-section">
+              <h5><span data-lang="zh">服务流程</span><span data-lang="en">Process</span></h5>
+              <div class="service-flow">
+                <div class="flow-step"><span data-lang="zh">设计沟通</span><span data-lang="en">Design Brief</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">打样确认</span><span data-lang="en">Sampling</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">供应商匹配</span><span data-lang="en">Supplier Matching</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">量产交付</span><span data-lang="en">Mass Production</span></div>
+              </div>
+            </div>
+            <div class="detail-section">
+              <h5><span data-lang="zh">核心优势</span><span data-lang="en">Advantages</span></h5>
+              <ul>
+                <li><span data-lang="zh">300+包材工厂合作网络</span><span data-lang="en">300+ packaging factory network</span></li>
+                <li><span data-lang="zh">环保与创新包材方案</span><span data-lang="en">Eco-friendly and innovative packaging solutions</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="service-expand-btn">
+          <span data-lang="zh">查看详情</span><span data-lang="en">View Details</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+
+      <!-- Service 4 -->
+      <div class="service-card" onclick="toggleService(this)">
+        <div class="service-header">
+          <div class="service-number">04</div>
+          <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 21h18M5 21V7l4 3V7l4 3V7l4 3V5a2 2 0 012-2h1a2 2 0 012 2v16"/><rect x="9" y="15" width="3" height="6"/></svg></div>
+          <h3><span data-lang="zh">代加工</span><span data-lang="en">Contract Manufacturing</span></h3>
+          <div class="en-name">OEM / ODM Contract Manufacturing</div>
+          <p>
+            <span data-lang="zh">工厂资源超过1000家，不管OEM还是ODM，根据你的产品需求帮你匹配合适的产能。</span>
+            <span data-lang="en">With 1000+ factory resources, whether OEM or ODM, we match the right capacity to your product needs.</span>
+          </p>
+        </div>
+        <div class="service-details">
+          <div class="service-details-inner">
+            <div class="detail-section">
+              <h5><span data-lang="zh">服务内容</span><span data-lang="en">Services</span></h5>
+              <ul>
+                <li><span data-lang="zh">工厂资质审核与产能评估</span><span data-lang="en">Factory qualification audit and capacity assessment</span></li>
+                <li><span data-lang="zh">精准匹配最优生产方案</span><span data-lang="en">Precise matching of optimal production solutions</span></li>
+                <li><span data-lang="zh">生产过程全程监控</span><span data-lang="en">Full-process production monitoring</span></li>
+                <li><span data-lang="zh">品质抽检与出厂检测</span><span data-lang="en">Quality sampling and factory inspection</span></li>
+              </ul>
+            </div>
+            <div class="detail-section">
+              <h5><span data-lang="zh">服务流程</span><span data-lang="en">Process</span></h5>
+              <div class="service-flow">
+                <div class="flow-step"><span data-lang="zh">需求对接</span><span data-lang="en">Requirement Brief</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">工厂匹配</span><span data-lang="en">Factory Matching</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">打样确认</span><span data-lang="en">Sample Approval</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">批量生产</span><span data-lang="en">Mass Production</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">质控出货</span><span data-lang="en">QC & Shipment</span></div>
+              </div>
+            </div>
+            <div class="detail-section">
+              <h5><span data-lang="zh">核心优势</span><span data-lang="en">Advantages</span></h5>
+              <ul>
+                <li><span data-lang="zh">1000+工厂资源池，覆盖全品类</span><span data-lang="en">1000+ factory pool covering all categories</span></li>
+                <li><span data-lang="zh">智能匹配系统，效率提升50%</span><span data-lang="en">Smart matching system, 50% efficiency improvement</span></li>
+                <li><span data-lang="zh">全程品质追溯体系</span><span data-lang="en">Full quality traceability system</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="service-expand-btn">
+          <span data-lang="zh">查看详情</span><span data-lang="en">View Details</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+
+      <!-- Service 5 -->
+      <div class="service-card" onclick="toggleService(this)">
+        <div class="service-header">
+          <div class="service-number">05</div>
+          <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/></svg></div>
+          <h3><span data-lang="zh">代运营</span><span data-lang="en">Brand Operation</span></h3>
+          <div class="en-name">Channel & Brand Operation Services</div>
+          <p>
+            <span data-lang="zh">帮你找渠道、做运营，不管是线上电商还是线下铺货，把产品推到消费者面前。</span>
+            <span data-lang="en">We help you find channels and run operations — whether it's e-commerce or offline retail, getting products in front of consumers.</span>
+          </p>
+        </div>
+        <div class="service-details">
+          <div class="service-details-inner">
+            <div class="detail-section">
+              <h5><span data-lang="zh">服务内容</span><span data-lang="en">Services</span></h5>
+              <ul>
+                <li><span data-lang="zh">线上渠道（天猫/抖音/小红书）入驻运营</span><span data-lang="en">Online channel (Tmall/Douyin/Xiaohongshu) onboarding and operation</span></li>
+                <li><span data-lang="zh">线下渠道（CS/KA）拓展</span><span data-lang="en">Offline channel (CS/KA) expansion</span></li>
+                <li><span data-lang="zh">品牌策略与营销方案</span><span data-lang="en">Brand strategy and marketing solutions</span></li>
+                <li><span data-lang="zh">达人/KOL资源对接</span><span data-lang="en">KOL/Influencer resource matching</span></li>
+                <li><span data-lang="zh">跨境电商出海服务</span><span data-lang="en">Cross-border e-commerce services</span></li>
+              </ul>
+            </div>
+            <div class="detail-section">
+              <h5><span data-lang="zh">服务流程</span><span data-lang="en">Process</span></h5>
+              <div class="service-flow">
+                <div class="flow-step"><span data-lang="zh">市场调研</span><span data-lang="en">Market Research</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">策略制定</span><span data-lang="en">Strategy Planning</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">渠道铺设</span><span data-lang="en">Channel Setup</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">运营推广</span><span data-lang="en">Operation & Promotion</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">数据优化</span><span data-lang="en">Data Optimization</span></div>
+              </div>
+            </div>
+            <div class="detail-section">
+              <h5><span data-lang="zh">核心优势</span><span data-lang="en">Advantages</span></h5>
+              <ul>
+                <li><span data-lang="zh">全渠道资源覆盖</span><span data-lang="en">Full-channel resource coverage</span></li>
+                <li><span data-lang="zh">数据驱动的精细化运营</span><span data-lang="en">Data-driven refined operations</span></li>
+                <li><span data-lang="zh">丰富的KOL/达人合作资源</span><span data-lang="en">Rich KOL/influencer partnership resources</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="service-expand-btn">
+          <span data-lang="zh">查看详情</span><span data-lang="en">View Details</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+
+      <!-- Service 6: Testing -->
+      <div class="service-card" onclick="toggleService(this)">
+        <div class="service-header">
+          <div class="service-number">06</div>
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 3h6v7l4 8H5l4-8V3z"/><path d="M9 3h6"/></svg>
+          </div>
+          <h3><span data-lang="zh">化妆品检测</span><span data-lang="en">Cosmetics Testing</span></h3>
+          <div class="en-name">Cosmetics Testing & Compliance</div>
+          <p>
+            <span data-lang="zh">联合CNAS认证实验室，提供微生物检测、重金属检测、稳定性测试、功效验证等服务，帮产品顺利过审。</span>
+            <span data-lang="en">Partnering with CNAS-accredited labs to provide microbiological testing, heavy metal testing, stability testing, efficacy verification and more.</span>
+          </p>
+        </div>
+        <div class="service-details">
+          <div class="service-details-inner">
+            <div class="detail-section">
+              <h5><span data-lang="zh">检测项目</span><span data-lang="en">Testing Items</span></h5>
+              <ul>
+                <li><span data-lang="zh">微生物检测（菌落总数、致病菌等）</span><span data-lang="en">Microbiological testing (total plate count, pathogenic bacteria, etc.)</span></li>
+                <li><span data-lang="zh">重金属及有害物质检测</span><span data-lang="en">Heavy metal and hazardous substance testing</span></li>
+                <li><span data-lang="zh">产品稳定性测试（耐热、耐寒、离心等）</span><span data-lang="en">Product stability testing (heat, cold, centrifuge, etc.)</span></li>
+                <li><span data-lang="zh">功效验证（保湿、美白、防晒等）</span><span data-lang="en">Efficacy verification (moisturizing, whitening, SPF, etc.)</span></li>
+                <li><span data-lang="zh">安全性评估与毒理学测试</span><span data-lang="en">Safety assessment and toxicological testing</span></li>
+              </ul>
+            </div>
+            <div class="detail-section">
+              <h5><span data-lang="zh">服务流程</span><span data-lang="en">Process</span></h5>
+              <div class="service-flow">
+                <div class="flow-step"><span data-lang="zh">送样</span><span data-lang="en">Sample Submission</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">检测</span><span data-lang="en">Testing</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">出具报告</span><span data-lang="en">Report Issuance</span></div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step"><span data-lang="zh">合规建议</span><span data-lang="en">Compliance Advice</span></div>
+              </div>
+            </div>
+            <div class="detail-section">
+              <h5><span data-lang="zh">合作保障</span><span data-lang="en">Assurance</span></h5>
+              <ul>
+                <li><span data-lang="zh">合作实验室均通过CNAS认可</span><span data-lang="en">Partner labs are all CNAS-accredited</span></li>
+                <li><span data-lang="zh">报告国际互认，可用于多国注册备案</span><span data-lang="en">Internationally recognized reports for multi-country registration</span></li>
+                <li><span data-lang="zh">出具整改建议，不只给结果还给方案</span><span data-lang="en">Providing remediation advice, not just results but solutions</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="service-expand-btn">
+          <span data-lang="zh">查看详情</span><span data-lang="en">View Details</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== COOPERATION ========== -->
+<section class="cooperation" id="cooperation">
+  <div class="container">
+    <div class="section-title fade-in">
+      <h2><span data-lang="zh">合作模式</span><span data-lang="en">Cooperation Models</span></h2>
+      <p>
+        <span data-lang="zh">灵活合作方式，满足不同规模客户需求</span>
+        <span data-lang="en">Flexible cooperation models to meet clients of all scales</span>
+      </p>
+    </div>
+
+    <!-- Models -->
+    <div class="coop-models fade-in">
+      <div class="coop-card full">
+        <div class="coop-badge">
+          <span data-lang="zh">推荐</span><span data-lang="en">Recommended</span>
+        </div>
+        <h3>
+          <span data-lang="zh">全链路托管</span>
+          <span data-lang="en">Full-Chain Managed Service</span>
+        </h3>
+        <p>
+          <span data-lang="zh">产品规划到市场落地，全程由我们来跟。你专注品牌方向和市场策略就好。</span>
+          <span data-lang="en">From product planning to market launch, we handle the whole process. You focus on brand direction and market strategy.</span>
+        </p>
+        <ul>
+          <li><span data-lang="zh">专属项目经理一对一服务</span><span data-lang="en">Dedicated project manager for one-on-one service</span></li>
+          <li><span data-lang="zh">全环节资源整合与成本优化</span><span data-lang="en">Full-chain resource integration and cost optimization</span></li>
+          <li><span data-lang="zh">风险共担，利益共享</span><span data-lang="en">Shared risk, shared rewards</span></li>
+          <li><span data-lang="zh">持续迭代优化</span><span data-lang="en">Continuous iteration and optimization</span></li>
+        </ul>
+      </div>
+      <div class="coop-card partial">
+        <div class="coop-badge">
+          <span data-lang="zh">灵活</span><span data-lang="en">Flexible</span>
+        </div>
+        <h3>
+          <span data-lang="zh">按需选择单环节</span>
+          <span data-lang="en">Modular Service Selection</span>
+        </h3>
+        <p>
+          <span data-lang="zh">不一定全包，你需要哪个环节就选哪个环节，备案、采购、代工都可以单独来。</span>
+          <span data-lang="en">You don't have to take the full package. Pick just filing, sourcing, or manufacturing — whatever you need.</span>
+        </p>
+        <ul>
+          <li><span data-lang="zh">按需定制，灵活组合</span><span data-lang="en">Customizable, flexible combinations</span></li>
+          <li><span data-lang="zh">与现有供应链无缝衔接</span><span data-lang="en">Seamless integration with existing supply chain</span></li>
+          <li><span data-lang="zh">透明定价，按服务计费</span><span data-lang="en">Transparent pricing, service-based billing</span></li>
+          <li><span data-lang="zh">快速启动，即时响应</span><span data-lang="en">Quick start, instant response</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Process Flow -->
+    <div class="section-title fade-in" style="margin-top:20px;">
+      <h2><span data-lang="zh">合作流程</span><span data-lang="en">Cooperation Process</span></h2>
+    </div>
+    <div class="process-flow fade-in">
+      <div class="process-step">
+        <div class="process-num">1</div>
+        <h5><span data-lang="zh">需求沟通</span><span data-lang="en">Consultation</span></h5>
+        <p><span data-lang="zh">深入了解需求</span><span data-lang="en">Understanding your needs</span></p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">2</div>
+        <h5><span data-lang="zh">方案定制</span><span data-lang="en">Custom Plan</span></h5>
+        <p><span data-lang="zh">量身定制方案</span><span data-lang="en">Tailored solutions</span></p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">3</div>
+        <h5><span data-lang="zh">资源匹配</span><span data-lang="en">Resource Match</span></h5>
+        <p><span data-lang="zh">精准匹配资源</span><span data-lang="en">Precise resource matching</span></p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">4</div>
+        <h5><span data-lang="zh">执行落地</span><span data-lang="en">Execution</span></h5>
+        <p><span data-lang="zh">高效执行落地</span><span data-lang="en">Efficient implementation</span></p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">5</div>
+        <h5><span data-lang="zh">交付验收</span><span data-lang="en">Delivery</span></h5>
+        <p><span data-lang="zh">严格质量验收</span><span data-lang="en">Strict quality acceptance</span></p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">6</div>
+        <h5><span data-lang="zh">长期维护</span><span data-lang="en">Ongoing Support</span></h5>
+        <p><span data-lang="zh">持续服务优化</span><span data-lang="en">Continuous optimization</span></p>
+      </div>
+    </div>
+
+    <!-- Client Profiles -->
+    <div class="section-title fade-in" style="margin-top:20px;">
+      <h2><span data-lang="zh">服务客户类型</span><span data-lang="en">Client Types</span></h2>
+    </div>
+    <div class="client-profiles fade-in">
+      <div class="client-card">
+        <div class="client-emoji"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F37021" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h6M3 15h6"/></svg></div>
+        <h4><span data-lang="zh">国内品牌方采购</span><span data-lang="en">Domestic Brand Procurement</span></h4>
+        <p><span data-lang="zh">已有品牌，需要优化供应链、降低成本、提升品质的国内品牌企业。</span><span data-lang="en">Established brands looking to optimize supply chain, reduce costs, and improve quality.</span></p>
+      </div>
+      <div class="client-card">
+        <div class="client-emoji"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F37021" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+        <h4><span data-lang="zh">想出海的企业主</span><span data-lang="en">Businesses Going Global</span></h4>
+        <p><span data-lang="zh">希望将产品推向海外市场，需要合规指导和渠道资源的企业主。</span><span data-lang="en">Entrepreneurs looking to expand products to overseas markets, needing compliance guidance and channel resources.</span></p>
+      </div>
+      <div class="client-card">
+        <div class="client-emoji"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F37021" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2c-2 2.5-3.5 6-3.5 10s1.5 7.5 3.5 10c2-2.5 3.5-6 3.5-10S14 4.5 12 2z"/></svg></div>
+        <h4><span data-lang="zh">海外供应链需求方</span><span data-lang="en">Overseas Supply Chain Buyers</span></h4>
+        <p><span data-lang="zh">需要从中国采购化妆品产品或原料的海外企业和品牌。</span><span data-lang="en">Overseas companies and brands needing to source cosmetics products or raw materials from China.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CASES ========== -->
+<section class="cases" id="cases">
+  <div class="container">
+    <div class="section-title fade-in">
+      <h2><span data-lang="zh">成功案例</span><span data-lang="en">Success Stories</span></h2>
+      <p>
+        <span data-lang="zh">真实合作成果，用数据说话</span>
+        <span data-lang="en">Real partnership results, let the data speak</span>
+      </p>
+    </div>
+
+    <div class="cases-grid fade-in">
+      <!-- Case 1 -->
+      <div class="case-card">
+        <div class="case-banner"></div>
+        <div class="case-body">
+          <div class="case-tag">
+            <span data-lang="zh">全链路合作</span><span data-lang="en">Full-Chain Partnership</span>
+          </div>
+          <h3><span data-lang="zh">上海汇朗</span><span data-lang="en">Shanghai Huilang</span></h3>
+          <p style="font-size:14px;color:#666;margin-bottom:16px;">
+            <span data-lang="zh">合作领域：备案咨询 · 原料采购 · 代加工 · 品质检测</span>
+            <span data-lang="en">Scope: Regulatory Filing · Raw Material Sourcing · Manufacturing · Quality Testing</span>
+          </p>
+          <div class="case-metrics">
+            <div class="case-metric">
+              <div class="num">
+                <span data-lang="zh">大幅↓</span>
+                <span data-lang="en">Significant↓</span>
+              </div>
+              <div class="label"><span data-lang="zh">采购成本</span><span data-lang="en">Procurement Cost</span></div>
+            </div>
+            <div class="case-metric">
+              <div class="num">100%</div>
+              <div class="label"><span data-lang="zh">合规达标</span><span data-lang="en">Compliance Rate</span></div>
+            </div>
+            <div class="case-metric">
+              <div class="num">
+                <span data-lang="zh">全链路</span>
+                <span data-lang="en">Full</span>
+              </div>
+              <div class="label"><span data-lang="zh">品质追溯</span><span data-lang="en">Traceability</span></div>
+            </div>
+          </div>
+          <div class="case-quote">
+            <span data-lang="zh">"异采帮助我们实现了供应链的合规化与成本优化的双重目标。"</span>
+            <span data-lang="en">"YiCai helped us achieve both supply chain compliance and cost optimization goals."</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 2 -->
+      <div class="case-card">
+        <div class="case-banner"></div>
+        <div class="case-body">
+          <div class="case-tag">
+            <span data-lang="zh">供应链整合</span>
+            <span data-lang="en">Supply Chain Integration</span>
+          </div>
+          <h3><span data-lang="zh">某头部国货美妆集团</span><span data-lang="en">A Leading Domestic Beauty Group</span></h3>
+          <p style="font-size:14px;color:#666;margin-bottom:16px;">
+            <span data-lang="zh">合作领域：原料采购 · 代加工供应链整合</span>
+            <span data-lang="en">Scope: Raw Material Sourcing · Contract Manufacturing Supply Chain Integration</span>
+          </p>
+          <div class="case-metrics">
+            <div class="case-metric">
+              <div class="num">18%↓</div>
+              <div class="label"><span data-lang="zh">采购成本</span><span data-lang="en">Cost Reduction</span></div>
+            </div>
+            <div class="case-metric">
+              <div class="num">95%</div>
+              <div class="label"><span data-lang="zh">交付准时率（原72%）</span><span data-lang="en">On-time Delivery (was 72%)</span></div>
+            </div>
+            <div class="case-metric">
+              <div class="num">60%↓</div>
+              <div class="label"><span data-lang="zh">投诉率</span><span data-lang="en">Complaint Rate</span></div>
+            </div>
+          </div>
+          <div class="case-quote">
+            <span data-lang="zh">"异采让我们重新理解了供应链管理的专业度。"</span>
+            <span data-lang="en">"YiCai made us re-understand the professionalism of supply chain management."</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TEAM ========== -->
+<section class="team" id="team">
+  <div class="container">
+    <div class="section-title fade-in">
+      <h2><span data-lang="zh">专家团队</span><span data-lang="en">Our Team</span></h2>
+      <p>
+        <span data-lang="zh">核心成员均拥有10年以上行业经验，深耕化妆品全产业链</span>
+        <span data-lang="en">Core members each have 10+ years of experience in the full cosmetics industry chain</span>
+      </p>
+    </div>
+
+    <div class="team-grid fade-in">
+      <!-- Member 1 -->
+      <div class="team-card">
+        <div class="team-avatar">
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="50" fill="#F37021" opacity="0.1"/>
+            <circle cx="50" cy="38" r="16" fill="#3C2415" opacity="0.6"/>
+            <ellipse cx="50" cy="78" rx="24" ry="18" fill="#3C2415" opacity="0.4"/>
+            <circle cx="50" cy="38" r="14" fill="#F37021" opacity="0.3"/>
+            <text x="50" y="43" text-anchor="middle" fill="#3C2415" font-size="14" font-weight="bold">周</text>
+          </svg>
+        </div>
+        <h4><span data-lang="zh">周微</span><span data-lang="en">Zhou Wei</span></h4>
+        <div class="role">
+          <span data-lang="zh">合规专家</span>
+          <span data-lang="en">Compliance Expert</span>
+        </div>
+        <div class="exp">15 <span data-lang="zh">年经验</span><span data-lang="en">years experience</span></div>
+        <div class="bio">
+          <span data-lang="zh">专注化妆品行业合规管理，熟悉NMPA法规体系与各国注册要求，帮助企业规避合规风险。</span>
+          <span data-lang="en">Specialized in cosmetics compliance management, familiar with NMPA regulations and international registration requirements.</span>
+        </div>
+      </div>
+
+      <!-- Member 2 -->
+      <div class="team-card">
+        <div class="team-avatar">
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="50" fill="#F37021" opacity="0.1"/>
+            <circle cx="50" cy="38" r="16" fill="#3C2415" opacity="0.6"/>
+            <ellipse cx="50" cy="78" rx="24" ry="18" fill="#3C2415" opacity="0.4"/>
+            <circle cx="50" cy="38" r="14" fill="#F37021" opacity="0.3"/>
+            <text x="50" y="43" text-anchor="middle" fill="#3C2415" font-size="14" font-weight="bold">龙</text>
+          </svg>
+        </div>
+        <h4>
+          <span data-lang="zh">龙盈利</span>
+          <span data-lang="en">Long Yingli</span>
+        </h4>
+        <div class="role">
+          <span data-lang="zh">行业专家</span>
+          <span data-lang="en">Industry Expert</span>
+        </div>
+        <div class="exp">12 <span data-lang="zh">年经验</span><span data-lang="en">years experience</span></div>
+        <div class="bio">
+          <span data-lang="zh">深耕化妆品行业多年，对市场趋势和产业链格局有深入洞察，为客户提供战略方向指引。</span>
+          <span data-lang="en">Years of experience in the cosmetics industry, providing strategic direction with deep insight into market trends and industry landscape.</span>
+        </div>
+      </div>
+
+      <!-- Member 3 -->
+      <div class="team-card">
+        <div class="team-avatar">
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="50" fill="#F37021" opacity="0.1"/>
+            <circle cx="50" cy="38" r="16" fill="#3C2415" opacity="0.6"/>
+            <ellipse cx="50" cy="78" rx="24" ry="18" fill="#3C2415" opacity="0.4"/>
+            <circle cx="50" cy="38" r="14" fill="#F37021" opacity="0.3"/>
+            <text x="50" y="43" text-anchor="middle" fill="#3C2415" font-size="14" font-weight="bold">傅</text>
+          </svg>
+        </div>
+        <h4>
+          <span data-lang="zh">傅禹龙</span>
+          <span data-lang="en">Fu Yulong</span>
+        </h4>
+        <div class="role">
+          <span data-lang="zh">运营专家</span>
+          <span data-lang="en">Operations Expert</span>
+        </div>
+        <div class="exp">11 <span data-lang="zh">年经验</span><span data-lang="en">years experience</span></div>
+        <div class="bio">
+          <span data-lang="zh">擅长品牌运营与市场推广，帮助客户打通从产品到市场的全链路运营体系。</span>
+          <span data-lang="en">Expert in brand operations and marketing, helping clients build end-to-end go-to-market systems.</span>
+        </div>
+      </div>
+
+      <!-- Member 4 -->
+      <div class="team-card">
+        <div class="team-avatar">
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="50" fill="#F37021" opacity="0.1"/>
+            <circle cx="50" cy="38" r="16" fill="#3C2415" opacity="0.6"/>
+            <ellipse cx="50" cy="78" rx="24" ry="18" fill="#3C2415" opacity="0.4"/>
+            <circle cx="50" cy="38" r="14" fill="#F37021" opacity="0.3"/>
+            <text x="50" y="43" text-anchor="middle" fill="#3C2415" font-size="14" font-weight="bold">周</text>
+          </svg>
+        </div>
+        <h4>
+          <span data-lang="zh">周燃</span>
+          <span data-lang="en">Zhou Ran</span>
+        </h4>
+        <div class="role">
+          <span data-lang="zh">产品专家</span>
+          <span data-lang="en">Product Expert</span>
+        </div>
+        <div class="exp">10 <span data-lang="zh">年经验</span><span data-lang="en">years experience</span></div>
+        <div class="bio">
+          <span data-lang="zh">对产品开发和用户体验有深入理解，帮助客户打造有市场竞争力的化妆品产品。</span>
+          <span data-lang="en">Deep understanding of product development and user experience, helping clients create competitive cosmetics products.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-title fade-in">
+      <h2><span data-lang="zh">联系我们</span><span data-lang="en">Contact Us</span></h2>
+      <p>
+        <span data-lang="zh">期待与您的合作，请留下您的需求</span>
+        <span data-lang="en">Looking forward to your cooperation, please leave your requirements</span>
+      </p>
+    </div>
+
+    <div class="contact-grid fade-in">
+      <div class="contact-form">
+        <h3>
+          <span data-lang="zh">在线询盘</span>
+          <span data-lang="en">Online Inquiry</span>
+        </h3>
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label><span data-lang="zh">姓名</span><span data-lang="en">Name</span></label>
+              <input type="text" placeholder="" required>
+            </div>
+            <div class="form-group">
+              <label><span data-lang="zh">公司</span><span data-lang="en">Company</span></label>
+              <input type="text" placeholder="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label><span data-lang="zh">邮箱</span><span data-lang="en">Email</span></label>
+            <input type="email" placeholder="" required>
+          </div>
+          <div class="form-group">
+            <label><span data-lang="zh">需求类型</span><span data-lang="en">Service Type</span></label>
+            <select>
+              <option value="">
+                <span data-lang="zh">请选择</span><span data-lang="en">Please select</span>
+              </option>
+              <option value="filing">备案咨询 / Regulatory Filing</option>
+              <option value="raw">原料采购 / Raw Material Sourcing</option>
+              <option value="pack">包材采购 / Packaging Sourcing</option>
+              <option value="mfg">代加工 / Contract Manufacturing</option>
+              <option value="ops">代运营 / Brand Operation</option>
+              <option value="testing">化妆品检测 / Cosmetics Testing</option>
+              <option value="full">全链路托管 / Full-Chain Service</option>
+              <option value="other">其他 / Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label><span data-lang="zh">留言</span><span data-lang="en">Message</span></label>
+            <textarea placeholder=""></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">
+            <span data-lang="zh">提交询盘</span>
+            <span data-lang="en">Submit Inquiry</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="contact-info-section">
+        <h3>
+          <span data-lang="zh">联系方式</span>
+          <span data-lang="en">Contact Info</span>
+        </h3>
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F37021" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+            <h5><span data-lang="zh">电话</span><span data-lang="en">Phone</span></h5>
+            <p>19521491707</p>
+          </div>
+          <div class="info-card">
+            <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F37021" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+            <h5><span data-lang="zh">微信</span><span data-lang="en">WeChat</span></h5>
+            <p>19521491707</p>
+          </div>
+          <div class="info-card">
+            <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F37021" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg></div>
+            <h5><span data-lang="zh">邮箱</span><span data-lang="en">Email</span></h5>
+            <p>contact@yicai.com</p>
+          </div>
+          <div class="info-card">
+            <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F37021" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <h5><span data-lang="zh">地址</span><span data-lang="en">Address</span></h5>
+            <p>
+              <span data-lang="zh">中国·上海</span>
+              <span data-lang="en">Shanghai, China</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>异采 YiCai</h3>
+        <p>
+          <span data-lang="zh">中国化妆品供应链服务平台<br>让更多品牌和消费者受益于中国化妆品产业链</span>
+          <span data-lang="en">Supply Chain Platform for China's Cosmetics Industry<br>Helping more brands and consumers benefit from China's cosmetics industry</span>
+        </p>
+      </div>
+      <div class="footer-links">
+        <h4><span data-lang="zh">快速导航</span><span data-lang="en">Quick Links</span></h4>
+        <a href="#about"><span data-lang="zh">关于我们</span><span data-lang="en">About Us</span></a>
+        <a href="#services"><span data-lang="zh">服务能力</span><span data-lang="en">Services</span></a>
+        <a href="#cooperation"><span data-lang="zh">合作模式</span><span data-lang="en">Cooperation</span></a>
+        <a href="#cases"><span data-lang="zh">成功案例</span><span data-lang="en">Cases</span></a>
+        <a href="#team"><span data-lang="zh">专家团队</span><span data-lang="en">Team</span></a>
+      </div>
+      <div class="footer-links">
+        <h4><span data-lang="zh">服务项目</span><span data-lang="en">Services</span></h4>
+        <a href="#services"><span data-lang="zh">备案咨询</span><span data-lang="en">Regulatory Filing</span></a>
+        <a href="#services"><span data-lang="zh">原料采购</span><span data-lang="en">Raw Material Sourcing</span></a>
+        <a href="#services"><span data-lang="zh">包材采购</span><span data-lang="en">Packaging Sourcing</span></a>
+        <a href="#services"><span data-lang="zh">代加工</span><span data-lang="en">Contract Manufacturing</span></a>
+        <a href="#services"><span data-lang="zh">代运营</span><span data-lang="en">Brand Operation</span></a>
+        <a href="#services"><span data-lang="zh">化妆品检测</span><span data-lang="en">Cosmetics Testing</span></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 异采 YiCai. All Rights Reserved.
+    </div>
+  </div>
+</footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+// Language Switch
+function switchLang(lang) {
+  document.documentElement.setAttribute('lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-lang-btn') === lang);
+  });
+  localStorage.setItem('yicai-lang', lang);
+}
+
+// Init language
+(function() {
+  const saved = localStorage.getItem('yicai-lang') || 'zh';
+  switchLang(saved);
+})();
+
+// Mobile Nav Toggle
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// Close mobile nav on link click
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  const navbar = document.getElementById('navbar');
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Active nav link on scroll
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY + 100;
+  sections.forEach(section => {
+    const top = section.offsetTop;
+    const height = section.offsetHeight;
+    const id = section.getAttribute('id');
+    const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+    if (link) {
+      link.classList.toggle('active', scrollY >= top && scrollY < top + height);
+    }
+  });
+});
+
+// Service card expand
+function toggleService(card) {
+  card.classList.toggle('expanded');
+}
+
+// Fade-in on scroll
+const fadeEls = document.querySelectorAll('.fade-in');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+fadeEls.forEach(el => observer.observe(el));
+
+// Number counter animation
+function animateCounters() {
+  document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+    const target = parseInt(el.getAttribute('data-target'));
+    const duration = 2000;
+    const step = target / (duration / 16);
+    let current = 0;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      const suffix = target >= 1000 ? '+' : target >= 30 ? '+' : '+';
+      el.textContent = Math.floor(current) + suffix;
+    }, 16);
+  });
+}
+
+// Trigger counter when stats section is visible
+const statsSection = document.querySelector('.stats');
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounters();
+      statsObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+statsObserver.observe(statsSection);
+
+// Form submit handler
+function handleSubmit(e) {
+  e.preventDefault();
+  const lang = document.documentElement.getAttribute('lang');
+  alert(lang === 'zh' ? '感谢您的询盘！我们将在24小时内与您联系。' : 'Thank you for your inquiry! We will contact you within 24 hours.');
+  e.target.reset();
+}
+</script>
+</body>
+</html>
